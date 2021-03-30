@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0 (Python 3.9.2 on darwin)" generated="20210324 13:33:43.509" rpa="false" schemaversion="2">
+<suite id="s1" name="Set Maintenace Hr Mch" source="/Users/MS/Project/MachineDB/Tests/set_maintenace_hr_mch.robot">
+<test id="s1-t1" name="Admin Sets Machine &amp; Spare Part Maintenance Hour">
+<kw name="Open Browser To Signin Page" library="resource">
+<kw name="Open Browser" library="Selenium2Library">
+<arg>${SIGNIN URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20210324 13:33:43.745" level="INFO">Opening browser 'Chrome' to base url 'http://127.0.0.1:8000/'.</msg>
+<status status="PASS" starttime="20210324 13:33:43.744" endtime="20210324 13:33:46.257"/>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20210324 13:33:46.257" endtime="20210324 13:33:46.387"/>
+</kw>
+<kw name="Set Selenium Speed" library="Selenium2Library">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" starttime="20210324 13:33:46.388" endtime="20210324 13:33:46.388"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:43.744" endtime="20210324 13:33:46.389"/>
+</kw>
+<kw name="Input Username" library="resource">
+<arg>system</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputUser</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:46.390" level="INFO">Typing text 'system' into text field 'inputUser'.</msg>
+<status status="PASS" starttime="20210324 13:33:46.390" endtime="20210324 13:33:46.533"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:46.389" endtime="20210324 13:33:46.533"/>
+</kw>
+<kw name="Input Password" library="resource">
+<arg>admin</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputPassword</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:46.534" level="INFO">Typing text 'admin' into text field 'inputPassword'.</msg>
+<status status="PASS" starttime="20210324 13:33:46.534" endtime="20210324 13:33:46.595"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:46.533" endtime="20210324 13:33:46.595"/>
+</kw>
+<kw name="Submit Credentials" library="resource">
+<kw name="Click Button" library="Selenium2Library">
+<arg>signin</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:46.596" level="INFO">Clicking button 'signin'.</msg>
+<status status="PASS" starttime="20210324 13:33:46.596" endtime="20210324 13:33:46.775"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:46.595" endtime="20210324 13:33:46.775"/>
+</kw>
+<kw name="Then Select-Department Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${SELECTDEPARTMENT URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210324 13:33:46.779" level="INFO">Current location is 'http://127.0.0.1:8000/sign-in/department/'.</msg>
+<status status="PASS" starttime="20210324 13:33:46.775" endtime="20210324 13:33:46.780"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:46.775" endtime="20210324 13:33:46.780"/>
+</kw>
+<kw name="Select Admin Department" library="resource">
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>id:select_department</arg>
+<arg>8</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210324 13:33:46.781" level="INFO">Selecting options from selection list 'id:select_department' by value 8.</msg>
+<status status="PASS" starttime="20210324 13:33:46.781" endtime="20210324 13:33:46.814"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:46.780" endtime="20210324 13:33:46.815"/>
+</kw>
+<kw name="Click Button" library="Selenium2Library">
+<arg>Sign in</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:46.815" level="INFO">Clicking button 'Sign in'.</msg>
+<status status="PASS" starttime="20210324 13:33:46.815" endtime="20210324 13:33:47.201"/>
+</kw>
+<kw name="Home Page Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${HOME URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210324 13:33:47.205" level="INFO">Current location is 'http://127.0.0.1:8000/home/'.</msg>
+<status status="PASS" starttime="20210324 13:33:47.202" endtime="20210324 13:33:47.205"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:47.201" endtime="20210324 13:33:47.205"/>
+</kw>
+<kw name="Select Machine Data Menu">
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="sidebar"]/div[2]/ul[1]/li[1]/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:47.206" level="INFO">Clicking link '//*[@id="sidebar"]/div[2]/ul[1]/li[1]/a'.</msg>
+<status status="PASS" starttime="20210324 13:33:47.206" endtime="20210324 13:33:47.265"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210324 13:33:48.268" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20210324 13:33:47.266" endtime="20210324 13:33:48.268"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:47.206" endtime="20210324 13:33:48.269"/>
+</kw>
+<kw name="Then Select Machine &amp; Spare Part">
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="machine_manage_menumenu"]/li[5]/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:48.272" level="INFO">Clicking link '//*[@id="machine_manage_menumenu"]/li[5]/a'.</msg>
+<status status="PASS" starttime="20210324 13:33:48.271" endtime="20210324 13:33:48.806"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:48.269" endtime="20210324 13:33:48.806"/>
+</kw>
+<kw name="Machine &amp; Spare Part Page Should Be Open">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>http://127.0.0.1:8000/machinemanage/machine-spare-part/</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210324 13:33:48.812" level="INFO">Current location is 'http://127.0.0.1:8000/machinemanage/machine-spare-part/'.</msg>
+<status status="PASS" starttime="20210324 13:33:48.807" endtime="20210324 13:33:48.812"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:48.807" endtime="20210324 13:33:48.813"/>
+</kw>
+<kw name="Click Setting Machine&amp;Sparepart Button">
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath:/html/body/div[2]/div/div/div[1]/div/div[2]/a</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:48.814" level="INFO">Clicking element 'xpath:/html/body/div[2]/div/div/div[1]/div/div[2]/a'.</msg>
+<status status="PASS" starttime="20210324 13:33:48.814" endtime="20210324 13:33:48.875"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:48.813" endtime="20210324 13:33:48.875"/>
+</kw>
+<kw name="Fill Data">
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<arg>Setting</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210324 13:33:48.877" endtime="20210324 13:33:48.903"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210324 13:33:49.905" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20210324 13:33:48.903" endtime="20210324 13:33:49.906"/>
+</kw>
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>id:select_machine</arg>
+<arg>52</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210324 13:33:49.907" level="INFO">Selecting options from selection list 'id:select_machine' by value 52.</msg>
+<status status="PASS" starttime="20210324 13:33:49.906" endtime="20210324 13:33:49.972"/>
+</kw>
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>id:select_spare_part</arg>
+<arg>15</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210324 13:33:49.973" level="INFO">Selecting options from selection list 'id:select_spare_part' by value 15.</msg>
+<status status="PASS" starttime="20210324 13:33:49.973" endtime="20210324 13:33:50.034"/>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<arg>xpath://*[@id="next_mtn_change"]</arg>
+<arg>${LASTHR}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:50.035" level="INFO">Typing text '999' into text field 'xpath://*[@id="next_mtn_change"]'.</msg>
+<status status="PASS" starttime="20210324 13:33:50.034" endtime="20210324 13:33:50.123"/>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<arg>//*[@id="setting"]/div/div/div[3]/button[2]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:50.124" level="INFO">Clicking element '//*[@id="setting"]/div/div/div[3]/button[2]'.</msg>
+<status status="PASS" starttime="20210324 13:33:50.124" endtime="20210324 13:33:50.645"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:48.876" endtime="20210324 13:33:50.645"/>
+</kw>
+<kw name="Check Data At Machine Maintenance Data Page">
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath:/html/body/div[1]/nav/a</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:50.646" level="INFO">Clicking element 'xpath:/html/body/div[1]/nav/a'.</msg>
+<status status="PASS" starttime="20210324 13:33:50.645" endtime="20210324 13:33:50.877"/>
+</kw>
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>http://127.0.0.1:8000/home/</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210324 13:33:50.883" level="INFO">Current location is 'http://127.0.0.1:8000/home/'.</msg>
+<status status="PASS" starttime="20210324 13:33:50.877" endtime="20210324 13:33:50.883"/>
+</kw>
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="sidebar"]/div[2]/ul[1]/li[4]/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:50.884" level="INFO">Clicking link '//*[@id="sidebar"]/div[2]/ul[1]/li[4]/a'.</msg>
+<status status="PASS" starttime="20210324 13:33:50.883" endtime="20210324 13:33:50.924"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210324 13:33:51.927" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20210324 13:33:50.924" endtime="20210324 13:33:51.928"/>
+</kw>
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="preventive_datamenu"]/li[1]/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:51.929" level="INFO">Clicking link '//*[@id="preventive_datamenu"]/li[1]/a'.</msg>
+<status status="PASS" starttime="20210324 13:33:51.928" endtime="20210324 13:33:52.210"/>
+</kw>
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<arg>Machine Maintenance Data</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210324 13:33:52.211" endtime="20210324 13:33:52.227"/>
+</kw>
+<kw name="Get Text" library="Selenium2Library">
+<var>${RESULT}</var>
+<arg>//*[@id="myTable"]/tbody/tr[1]/td[6]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20210324 13:33:52.248" level="INFO">${RESULT} = 999</msg>
+<status status="PASS" starttime="20210324 13:33:52.227" endtime="20210324 13:33:52.248"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${RESULT}</arg>
+<arg>${LASTHR}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20210324 13:33:52.248" endtime="20210324 13:33:52.249"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:50.645" endtime="20210324 13:33:52.249"/>
+</kw>
+<status status="PASS" starttime="20210324 13:33:43.743" endtime="20210324 13:33:52.249"/>
+</test>
+<kw name="Close Browser" library="Selenium2Library" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20210324 13:33:52.251" endtime="20210324 13:33:52.407"/>
+</kw>
+<doc>A test suite for setting machine &amp; spare part maintenance hour.</doc>
+<status status="PASS" starttime="20210324 13:33:43.511" endtime="20210324 13:33:52.407"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Set Maintenace Hr Mch">Set Maintenace Hr Mch</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

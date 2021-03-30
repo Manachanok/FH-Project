@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Role & Screen</title>
+
+
+    {% load static %}
+    <!-- icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'iconfont/material-icons.css' %}">
+    <script src="{% static 'javascript/fontawesom_icon_msn.js' %}"></script>
+    <!-- Fonts -->
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/fonts.css' %}">
+    <!-- Jquery   -->
+    <script src="{% static 'javascript/jquery-3.5.1.min.js' %}"></script>
+    <!-- Bootstrap 4.5.3 -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style/bootstrap.min.css' %}">
+    <script src="{% static 'javascript/bootstrap.min.js' %}"></script>
+    <!-- DataTable   -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style/jquery.dataTables-1.10.19.min.css' %}">
+    <script src="{% static 'javascript/jquery.dataTables.min.js' %}"></script>
+    <!--  Popper  -->
+    <script src="{% static 'javascript/popper-1.16.0.min.js' %}"></script>
+    <!--  Container Form -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style/container-fluid.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/form-group.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/switch.css' %}">
+
+</head>
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #f5f5f5;">
+        <a href="{% url 'home' %}" class="navbar-brand">
+            <img src="/static/img/farmhouse_logo copy.gif" height="65" alt="CoolBrand">
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse1">
+            <div class="navbar-nav">
+                <a href="{% url 'usermanage' %}" class="nav-item nav-link">User Manage</a>
+                <a href="{% url 'rolemanage' %}" class="nav-item nav-link">Role Manage</a>
+                <a href="{% url 'department_manage' %}" class="nav-item nav-link">Department Manage</a>
+                <a href="{% url 'user_department' %}" class="nav-item nav-link">User&Department</a>
+                <a href="{% url 'screenmanage' %}" class="nav-item nav-link">Screen Manage</a>
+                <a href="{% url 'role_screen_manage' %}" class="nav-item nav-link active"><b>Role&Screen</b></a>
+                <a href="{% url 'menumanage' %}" class="nav-item nav-link">Menu Manage</a>
+            </div>
+                <form method="POST" action="{% url 'signin' %}">
+                    {% csrf_token %}
+                    <ul class="nav navbar-nav ml-auto">
+                        <a href="#" class="nav-item nav-link" style="color:#B22222">{{User_login.username}}</a>
+                        <button type="submit" class="btn btn-outline-secondary" name="signout">Sign out</button>
+                    </ul>
+                </form>
+        </div>
+    </nav>
+</div>
+<div class="container-fluid">
+    <div class="table-responsive">
+        {% for message in messages %}
+        <div class="alert {{ message.tags }} ">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';" style="color: #454545; font-size: 36px;">&times;</span>
+            {{ message }}
+        </div>
+        {% endfor %}
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <h2>Role & Screen <b>Management</b></h2>
+                    </div>
+                    <div class="col-sm-7">
+                        <a href="#createrolescreen" class="btn btn-secondary" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New RoleScreen</span></a>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover" id="myTable">
+                <thead>
+                    <tr>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Role ID</th>
+                        <th rowspan="2">Screen ID (Name)</th>
+                        <th colspan="3" scope="colgroup"><center>Permission</center></th>
+                        <th rowspan="2"><center>Action</center></th>
+                    </tr>
+                    <tr>
+                        <th scope="col" width="100">Insert</th>
+                        <th scope="col" width="100">Update</th>
+                        <th scope="col" width="100">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for rs in list_role_screen %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{% if rs.role_id == 'admin' %}<img src="/static/img/king.png" width="30" height="30">{% elif 'engineer' in rs.role_id %}<img src="/static/img/worker.png" width="30" height="30">{% else %}<img src="/static/img/witch.png" width="30" height="30">{% endif %}&nbsp;&nbsp;{{rs.role_id}}</a></td>
+                        <td><img src="/static/img/laptop.png" width="30" height="30">&nbsp;&nbsp;{{rs.screen_id}} ({{rs.screen.screen_name}})</td>
+                        <td>{% if rs.permission_insert == 'Y' %}<img src="/static/img/icons8-checkmark-48.png" width="30" height="30">{% else %}<img src="/static/img/icons8-cross-mark-48.png" width="30" height="30">{% endif %}</td>
+                        <td>{% if rs.permission_update == 'Y' %}<img src="/static/img/icons8-checkmark-48.png" width="30" height="30">{% else %}<img src="/static/img/icons8-cross-mark-48.png" width="30" height="30">{% endif %}</td>
+                        <td>{% if rs.permission_delete == 'Y' %}<img src="/static/img/icons8-checkmark-48.png" width="30" height="30">{% else %}<img src="/static/img/icons8-cross-mark-48.png" width="30" height="30">{% endif %}</td>
+                        <td>
+                            &nbsp;&nbsp;<a href="#setting{{rs.id}}" class="settings" title="Settings" data-toggle="modal"><i class="material-icons">&#xE8B8;</i></a>
+                            &nbsp;&nbsp;<a href="#delete{{rs.id}}" class="delete" title="Delete" data-toggle="modal"><i class="material-icons">&#xE5C9;</i></a>
+                        </td>
+                    </tr>
+
+            <!-- Modal Setting -->
+            <div id="setting{{rs.id}}" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form method="POST" action="{% url 'role_screen_manage' %}">
+                            {% csrf_token %}
+                            <div class="modal-header">
+                                <h5 class="modal-title">Setting</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label >Select Role ID</label>
+                                    <select class="form-control" id="set_rs_role{{forloop.counter}}" name="set_rs_role">
+                                    {% for role in roles %}
+                                    <option value="{{role.role_id}}" {% if role.role_id == rs.role_id %}selected{% endif %}>{{role}}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Screen ID</label>
+                                    <select class="form-control" id="set_rs_screen{{forloop.counter}}" name="set_rs_screen">
+                                    {% for screen in screens %}
+                                    <option value="{{screen.screen_id}}" {% if screen.screen_id == rs.screen_id %}selected{% endif %}>{{screen.screen_id}}&nbsp;&nbsp;({{screen.screen_name}})</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">Permission Type</div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-4 permission-label">Insert</div>
+                                        <div class="col-sm-4">
+                                            <div class="onoffswitch">
+                                                <input type="checkbox" class="onoffswitch-checkbox" id="set_rs_insert{{forloop.counter}}" name="set_rs_insert" value="Y" {% if rs.permission_insert == 'Y' %}checked{% endif %}>
+                                                <label class="onoffswitch-label" for="set_rs_insert{{forloop.counter}}">
+                                                    <span class="onoffswitch-inner"></span>
+                                                    <span class="onoffswitch-switch"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 permission-label">Update</div>
+                                        <div class="col-sm-4">
+                                            <div class="onoffswitch">
+                                                <input type="checkbox" class="onoffswitch-checkbox" id="set_rs_update{{forloop.counter}}" name="set_rs_update" value="Y" {% if rs.permission_update == 'Y' %}checked{% endif %}>
+                                                <label class="onoffswitch-label" for="set_rs_update{{forloop.counter}}">
+                                                    <span class="onoffswitch-inner"></span>
+                                                    <span class="onoffswitch-switch"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 permission-label">Delete</div>
+                                        <div class="col-sm-4">
+                                            <div class="onoffswitch">
+                                                <input type="checkbox" class="onoffswitch-checkbox" id="set_rs_delete{{forloop.counter}}" name="set_rs_delete" value="Y"  {% if rs.permission_delete == 'Y' %} checked{% endif %}>
+                                                <label class="onoffswitch-label" for="set_rs_delete{{forloop.counter}}">
+                                                    <span class="onoffswitch-inner"></span>
+                                                    <span class="onoffswitch-switch"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary" name="Edit_rs" value="{{rs.id}}">Submit</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Delete -->
+            <div id="delete{{rs.id}}" class="modal fade" tabindex="-1" >
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" id="rs_var{{forloop.counter}}" class="form-control" value="role id : {{rs.role_id}} &nbsp;||&nbsp; screen id : {{rs.screen_id}}" name="rs_var" readonly>
+                            <br><p>Do you want to delete this Role&Screen?</p>
+                            <p class="text-secondary"><small>If you change your mind, please click cancel.</small></p>
+                        </div>
+                        <div class="modal-footer">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger" value="{{rs.id}}" name="delete_rs">Delete</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- Modal Add Role_Screen -->
+            <div id="createrolescreen" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add New RoleScreen</h5>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Select Role ID</label>
+                                    <select class="form-control" id="add_rs_role" name="add_rs_role" onchange="role_dropdown_screen(this)">
+                                        <option value="">------------กรุณาเลือกบทบาท----------</option>
+                                        {% for role in roles %}
+                                        <option value="{{role.role_id}}">{{role}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Screen ID </label>
+                                    <select class="form-control" id="add_rs_screen" name="add_rs_screen">
+                                        <option value="">------------กรุณาเลือกหน้าจอ----------</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">Permission Type</div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-4 permission-label">Insert</div>
+                                        <div class="col-sm-4">
+                                            <div class="onoffswitch">
+                                                <input type="checkbox" class="onoffswitch-checkbox" id="add_insert" name="add_rs_insert" value="Y" tabindex="0">
+                                                <label class="onoffswitch-label" for="add_insert">
+                                                    <span class="onoffswitch-inner"></span>
+                                                    <span class="onoffswitch-switch"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 permission-label">Update</div>
+                                        <div class="col-sm-4">
+                                            <div class="onoffswitch">
+                                                <input type="checkbox" class="onoffswitch-checkbox" id="add_update" name="add_rs_update" value="Y" tabindex="0">
+                                                <label class="onoffswitch-label" for="add_update">
+                                                    <span class="onoffswitch-inner"></span>
+                                                    <span class="onoffswitch-switch"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4 permission-label">Delete</div>
+                                        <div class="col-sm-4">
+                                            <div class="onoffswitch">
+                                                <input type="checkbox" class="onoffswitch-checkbox" id="add_delete" name="add_rs_delete" value="Y" tabindex="0">
+                                                <label class="onoffswitch-label" for="add_delete">
+                                                    <span class="onoffswitch-inner"></span>
+                                                    <span class="onoffswitch-switch"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary" name="Addrolescreen">Submit</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+    function role_dropdown_screen(element) {
+        var role_id = $(element).val();
+        $.ajax({
+            url : "{% url 'load_role_screen' %}",
+            data : {
+                "csrfmiddlewaretoken" : $(element).siblings("input[name='csrfmiddlewaretoken']" ).val(),
+                "role_id" : role_id,
+            },
+            method: "POST",
+            dataType : "json",
+            success : function (data) {
+                if (data.length != 0) {
+                    $('#add_rs_screen').empty();
+                    var select_type = document.getElementById('add_rs_screen');
+                    for (model in data) {
+                        var options = document.createElement('option');
+                        options.appendChild( document.createTextNode(data[model].pk+" ("+data[model].fields.screen_name+")"));
+                        options.value = data[model].pk;
+                        select_type.appendChild(options);
+                    }
+                } else {
+                    $('#add_rs_screen').empty();
+                    var select_type = document.getElementById('add_rs_screen');
+                    var options = document.createElement('option');
+                    options.appendChild( document.createTextNode("*** บทบาทนี้มีครบทุกหน้าจอแล้ว ***"));
+                    select_type.appendChild(options);
+                }
+            }
+        });
+    }
+</script>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
+<script>
+    $(document).ready(function(){
+        $("#setting").on("show.bs.modal", function(event){
+            // Get the button that triggered the modal
+            var button = $(event.relatedTarget);
+
+            // Extract value from the custom data-* attribute
+            var titleData = button.data("title");
+            $(this).find(".modal-title").text(titleData);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+</body>
+</html>

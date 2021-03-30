@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0 (Python 3.9.2 on darwin)" generated="20210326 16:29:30.494" rpa="false" schemaversion="2">
+<suite id="s1" name="Receive Maintenance Request" source="/Users/MS/Project/MachineDB/Tests/receive_maintenance_request.robot">
+<test id="s1-t1" name="Engineer01 Receives Maintenance Request">
+<kw name="Open Browser To Signin Page" library="resource">
+<kw name="Open Browser" library="Selenium2Library">
+<arg>${SIGNIN URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20210326 16:29:30.660" level="INFO">Opening browser 'Chrome' to base url 'http://127.0.0.1:8000/'.</msg>
+<status status="PASS" starttime="20210326 16:29:30.659" endtime="20210326 16:29:33.239"/>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20210326 16:29:33.240" endtime="20210326 16:29:33.364"/>
+</kw>
+<kw name="Set Selenium Speed" library="Selenium2Library">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" starttime="20210326 16:29:33.364" endtime="20210326 16:29:33.365"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:30.659" endtime="20210326 16:29:33.365"/>
+</kw>
+<kw name="Input Username" library="resource">
+<arg>engineer01</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputUser</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210326 16:29:33.366" level="INFO">Typing text 'engineer01' into text field 'inputUser'.</msg>
+<status status="PASS" starttime="20210326 16:29:33.366" endtime="20210326 16:29:33.507"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:33.365" endtime="20210326 16:29:33.507"/>
+</kw>
+<kw name="Input Password" library="resource">
+<arg>engineer01</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputPassword</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210326 16:29:33.508" level="INFO">Typing text 'engineer01' into text field 'inputPassword'.</msg>
+<status status="PASS" starttime="20210326 16:29:33.508" endtime="20210326 16:29:33.572"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:33.507" endtime="20210326 16:29:33.572"/>
+</kw>
+<kw name="Submit Credentials" library="resource">
+<kw name="Click Button" library="Selenium2Library">
+<arg>signin</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210326 16:29:33.573" level="INFO">Clicking button 'signin'.</msg>
+<status status="PASS" starttime="20210326 16:29:33.572" endtime="20210326 16:29:33.735"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:33.572" endtime="20210326 16:29:33.735"/>
+</kw>
+<kw name="Then Select-Department Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${SELECTDEPARTMENT URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210326 16:29:33.740" level="INFO">Current location is 'http://127.0.0.1:8000/sign-in/department/'.</msg>
+<status status="PASS" starttime="20210326 16:29:33.735" endtime="20210326 16:29:33.740"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:33.735" endtime="20210326 16:29:33.740"/>
+</kw>
+<kw name="Select Engineering Line 8 Department" library="resource">
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>id:select_department</arg>
+<arg>5</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210326 16:29:33.741" level="INFO">Selecting options from selection list 'id:select_department' by value 5.</msg>
+<status status="PASS" starttime="20210326 16:29:33.741" endtime="20210326 16:29:33.771"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:33.740" endtime="20210326 16:29:33.771"/>
+</kw>
+<kw name="Click Button" library="Selenium2Library">
+<arg>Sign in</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210326 16:29:33.772" level="INFO">Clicking button 'Sign in'.</msg>
+<status status="PASS" starttime="20210326 16:29:33.772" endtime="20210326 16:29:34.116"/>
+</kw>
+<kw name="Home Page Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${HOME URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210326 16:29:34.120" level="INFO">Current location is 'http://127.0.0.1:8000/home/'.</msg>
+<status status="PASS" starttime="20210326 16:29:34.117" endtime="20210326 16:29:34.120"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:34.116" endtime="20210326 16:29:34.120"/>
+</kw>
+<kw name="Select Machine Maintenance Menu">
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="sidebar"]/div[2]/ul[1]/li[4]/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210326 16:29:34.121" level="INFO">Clicking link '//*[@id="sidebar"]/div[2]/ul[1]/li[4]/a'.</msg>
+<status status="PASS" starttime="20210326 16:29:34.121" endtime="20210326 16:29:34.187"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210326 16:29:35.189" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20210326 16:29:34.187" endtime="20210326 16:29:35.190"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:34.120" endtime="20210326 16:29:35.190"/>
+</kw>
+<kw name="Then Select Receive Maintenance Request">
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="preventive_datamenu"]/li[2]/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210326 16:29:35.192" level="INFO">Clicking link '//*[@id="preventive_datamenu"]/li[2]/a'.</msg>
+<status status="PASS" starttime="20210326 16:29:35.192" endtime="20210326 16:29:35.394"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:35.191" endtime="20210326 16:29:35.394"/>
+</kw>
+<kw name="Receive Maintenance Request Page Should Be Open">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>http://127.0.0.1:8000/preventive/maintenance-receive</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210326 16:29:35.398" level="INFO">Current location is 'http://127.0.0.1:8000/preventive/maintenance-receive'.</msg>
+<status status="PASS" starttime="20210326 16:29:35.394" endtime="20210326 16:29:35.398"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:35.394" endtime="20210326 16:29:35.398"/>
+</kw>
+<kw name="Select Maintenance Request Will Be Received">
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath://*[@id="myTable"]/tbody/tr[4]/td[10]/center/a</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210326 16:29:35.399" level="INFO">Clicking element 'xpath://*[@id="myTable"]/tbody/tr[4]/td[10]/center/a'.</msg>
+<status status="PASS" starttime="20210326 16:29:35.399" endtime="20210326 16:29:35.484"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:35.398" endtime="20210326 16:29:35.484"/>
+</kw>
+<kw name="Receive Maintenance Request">
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<arg>ใบแจ้งซ่อมเครื่องจักร</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210326 16:29:35.484" endtime="20210326 16:29:35.497"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210326 16:29:36.498" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20210326 16:29:35.497" endtime="20210326 16:29:36.498"/>
+</kw>
+<kw name="Select Radio Button" library="Selenium2Library">
+<arg>is_receive</arg>
+<arg>is_receive</arg>
+<doc>Sets the radio button group ``group_name`` to ``value``.</doc>
+<msg timestamp="20210326 16:29:36.499" level="INFO">Selecting 'is_receive' from radio button 'is_receive'.</msg>
+<status status="PASS" starttime="20210326 16:29:36.498" endtime="20210326 16:29:36.518"/>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath://*[@id="setting4"]/div/div/div[3]/button[2]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210326 16:29:36.519" level="INFO">Clicking element 'xpath://*[@id="setting4"]/div/div/div[3]/button[2]'.</msg>
+<status status="PASS" starttime="20210326 16:29:36.518" endtime="20210326 16:29:36.692"/>
+</kw>
+<kw name="Get Text" library="Selenium2Library">
+<var>${MaintenanceRequestStatus}</var>
+<arg>xpath://*[@id="myTable"]/tbody/tr[4]/td[9]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20210326 16:29:36.714" level="INFO">${MaintenanceRequestStatus} = รอการตรวจสอบอะไหล่</msg>
+<status status="PASS" starttime="20210326 16:29:36.692" endtime="20210326 16:29:36.714"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${MaintenanceRequestStatus}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20210326 16:29:36.714" endtime="20210326 16:29:36.714"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${MaintenanceRequestStatus}</arg>
+<arg>รอการตรวจสอบอะไหล่</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20210326 16:29:36.714" endtime="20210326 16:29:36.715"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:35.484" endtime="20210326 16:29:36.715"/>
+</kw>
+<status status="PASS" starttime="20210326 16:29:30.658" endtime="20210326 16:29:36.715"/>
+</test>
+<kw name="Close Browser" library="Selenium2Library" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20210326 16:29:36.716" endtime="20210326 16:29:36.823"/>
+</kw>
+<doc>A test suite for receiving maintenance request.</doc>
+<status status="PASS" starttime="20210326 16:29:30.495" endtime="20210326 16:29:36.823"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Receive Maintenance Request">Receive Maintenance Request</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

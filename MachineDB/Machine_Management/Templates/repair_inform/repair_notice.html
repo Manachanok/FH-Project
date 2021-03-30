@@ -1,0 +1,697 @@
+{% extends "repair_inform/repair_layout.html" %}
+
+{% block title %}Repair Notice{% endblock %}
+
+{% block css %}
+    <style>
+        .filter-repair {
+            margin: 15px 0;
+            padding: 0px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block navbar %}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="table-wrapper">
+    <div class="table-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Repair <b>Notice</b></h2>
+            </div>
+            <div class="col-sm-4">
+                <a href="#create_repair_notice" class="btn btn-secondary" data-toggle="modal"><i class="material-icons">&#xE147;</i <span>แจ้งซ่อมเครื่องจักร</span></a>
+                <a href="#export-file" class="btn btn-secondary" data-toggle="modal"><i class="material-icons">&#xE24D;</i> <span>Export to File</span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-repair" >
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group" style="padding-bottom: 0px; margin: 0px 10px;">
+                    <select  class="form-control" name="filter_status">
+                        <option value="0">ใบแจ้งซ่อมทั้งหมด</option>
+                        <option value="1">ใบแจ้งซ่อมที่ค้างซ่อม</option>
+                        <option value="2">ใบแจ้งซ่อมที่เสร็จสิ้น</option>
+                        <option value="3">ใบแจ้งซ่อมทั้งหมดในหน่วยงาน</option>
+                        <option value="4">ใบแจ้งซ่อมที่ค้างซ่อมในหน่วยงาน</option>
+                        <option value="5">ใบแจ้งซ่อมที่เสร็จสิ้นในหน่วยงาน</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="padding-bottom: 0px; margin-bottom: 0px;">
+                    <select  class="form-control"  name="filter_date">
+                        <option value="0">ทุกวันทั้งหมด</option>
+                        <option value="1">วันนี้ทั้งหมด</option>
+                        <option value="2">7 วันก่อนหน้า</option>
+                        <option value="3">เดือนนี้ทั้งหมด</option>
+                        <option value="4">หนึ่งปีนี้ทั้งหมด</option>
+                    </select>
+                </div>
+
+                <div class="" style="margin-left: 10px;">
+                    <button type="submit" class="btn btn-light" name="filter" style="width:42px; height:38px; color: #495057; border-radius: .25rem; border: 1px solid #ced4da;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <table class="table table-striped table-hover" id="myTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>หมายเลขใบแจ้งซ่อม</th>
+                <th>หน่วยงานที่แจ้ง</th>
+                <th>ไลน์ผลิต</th>
+                <th>เครื่องจักร</th>
+                <th>วันที่แจ้งซ่อม</th>
+                <th>วันที่ต้องการใช้</th>
+                <th>วันที่ปิดใบแจ้ง</th>
+                <th>สถานะการแจ้ง</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for repair in list_repair_notice %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{repair.repair_no}}</td>
+                <td>{{repair.department_notifying.department_name}}</td>
+                <td>{{repair.machine.line}}</td>
+                <td>{{repair.machine.machine_name}}</td>
+                <td>{{repair.notification_date}}</td>
+                <td>{{repair.use_date}}</td>
+                <td>{{repair.repair_close_date|default_if_none:''}}</td>
+                <td>{{repair.repair_status}}</td>
+                <td>
+                    <center>
+                    <a href="#setting{{forloop.counter}}" class="settings" title="Settings" data-toggle="modal" {% if repair.is_receive %}hidden{% endif %}><i class="material-icons">&#xE8B8;</i></a>
+                    <a href="#delete{{forloop.counter}}" class="delete" title="Delete" data-toggle="modal" {% if repair.is_receive %}hidden{% endif %}><i class="material-icons">&#xE5C9;</i></a>
+                    <a href="#report{{forloop.counter}}" class="report" title="Report" data-toggle="modal" {% if not repair.is_receive %}hidden{% endif %}><i class="material-icons">insert_drive_file</i></a>
+                    </center>
+                </td>
+            </tr>
+
+    <!-- Modal job -->
+    <div id="report{{forloop.counter}}" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title">ใบแจ้งซ่อมเครื่องจักร</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5><u><strong>ข้อมูลหน่วยงานแจ้งซ่อมเครื่องจักร</strong></u></h5>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label">หมายเลขใบแจ้งซ่อม : {{repair.repair_no}}</label>
+                                </div>
+                                <div class="col-md-6" align="right">
+                                    <label class="control-label">วันที่แจ้งซ่อม : {{repair.notification_date}}</label>
+                                </div>
+                            </div>
+                        <label class="control-label">สถานะใบแจ้งซ่อม : <u>{{repair.repair_status}}</u></label><br>
+                        <label class="control-label">หน่วยงานทีแจ้ง : {{repair.department_notifying.department_code}} {{repair.department_notifying.department_name}}</label><br>
+                        <label class="control-label">พนักงานที่แจ้ง : {{repair.repairer_user.username}}&nbsp;&nbsp;&nbsp;ติดต่อ : {{repair.repairer_user.email}}</label><br>
+                        <label class="control-label">พนักงานที่ตรวจสอบ : {{repair.inspect_user.username}}&nbsp;&nbsp;&nbsp;ติดต่อ : {{repair.inspect_user.email}}</label><br>
+                        <label class="control-label">พนักงานที่อนุมัติ : {{repair.approve_user.username}}&nbsp;&nbsp;&nbsp;ติดต่อ : {{repair.approve_user.email}}</label><br><br>
+
+                        <h5><u><strong>เครื่องจักร</strong></u></h5>
+                        <label class="control-label">เครื่องจักร : <u>{{repair.machine.machine_production_line_code}} | {{repair.machine.machine_name}}</u>&nbsp;&nbsp;&nbsp; [ {{repair.machine.line}} ]</label><br>
+                        <label class="control-label">ปัญหาเครื่องจักรที่พบ : {{repair.problem_report}}</label><br>
+                        <label class="control-label">ผลกระทบของปัญหา : {{repair.effect_problem}}</label><br>
+                        <label class="control-label">วันที่ต้องการใช้งาน : {{repair.use_date}}</label><br><br>
+
+                        <h5><u><strong>อะไหล่ที่ซ่อมบำรุง</strong></u></h5>
+                        {% for mtn_job in repair.maintenance_jobs.all %}
+                        <label class="control-label"><b>{{forloop.counter}}.</b> อะไหล่ที่ซ่อมบำรุง : <u>{{mtn_job.job_mch_sp.spare_part}}</u>&nbsp;&nbsp;&nbsp; [ {{mtn_job.job_mch_sp.spare_part.spare_part_group}} {{mtn_job.job_mch_sp.spare_part.spare_part_type}} {{mtn_job.job_mch_sp.spare_part.spare_part_sub_type}} ]</label><br>
+                        <label class="control-label col-5">- หมายเลขงาน : {{mtn_job.job_no}}</label><br>
+                        <label class="control-label col-5">- สถานะของงาน : {{mtn_job.job_status}}</label><br><br>
+                        {% endfor %}
+
+                        {% if not repair.is_close %}
+                        {% if repair.can_close %}
+                        <hr>
+                        <h5><u><strong>ปิดใบแจ้งซ่อมเครื่องจักร</strong></u></h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="is_close" id="is_close{{forloop.counter}}" value="is_close" checked>
+                            <label class="form-check-label" for="is_close{{forloop.counter}}" >ปิดใบแจ้งซ่อมเครื่องจักร</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="is_close" id="is_cancel{{forloop.counter}}" value="is_cancel" >
+                            <label class="form-check-label" for="is_cancel{{forloop.counter}}">ยกเลิกใบแจ้งซ่อมเครื่องจักร</label>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label class="col-sm-1 col-form-label">หมายเหตุ</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="close_remark"/>
+                            </div>
+                        </div>
+                        <small># สามารถปิดใบแจ้งซ่อมได้ "งาน" ทั้งหมดเสร็จสิ้น</small>
+                        {% else %}
+                        <small># ไม่สามารถปิดงานได้เนื่องจากมี "งาน" ที่อยู่ในการดำเนินการ</small>
+                        {% endif %}
+                        {% else %}
+                        <small># ปิดใบแจ้งซ่อมเรียบร้อยแล้ว</small>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer" {%if not repair.can_close or repair.is_close %}hidden{% endif %}>
+                        {%if repair.repairer_user != User_login %}<small># ไม่สามารถปิดใบแจ้งซ่อมได้เนื่องจากไม่ใช่ผู้แจ้งซ่อม</small>{% endif %}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" name="repair_close" value="{{repair.pk}}" {%if repair.repairer_user != User_login %}disabled{% endif %}>Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="setting{{forloop.counter}}" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title">ใบแจ้งซ่อมเครื่องจักร</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h5><b>ข้อมูลใบแจ้งซ่อม</b></h5><hr><br>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">หมายเลขใบแจ้งซ่อมเครื่องจักร :</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="set_repair_no" id="set_repair_no{{forloop.counter}}"  value="{{repair.repair_no}}" readonly/>
+                            </div>
+                            <label class="col-sm-2 col-form-label">วันที่สร้างใบแจ้งซ่อม :</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" name="set_repair_gen_date" id="set_repair_gen_date{{forloop.counter}}"  value="{{repair.repair_gen_date}}" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">สถานะใบแจ้งซ่อมเครื่องจักร :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="set_repair_status" id="set_repair_status{{forloop.counter}}"  value="{{repair.repair_status}}" readonly/>
+                            </div>
+                        </div>
+
+                        <h5><b>ข้อมูลหน่วยงานแจ้งซ่อมเครื่องจักร</b></h5><hr><br>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">หน่วยงานที่แจ้ง : </label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="set_department_notifying" id="set_department_notifying{{forloop.counter}}"  value="{{repair.department_notifying.department_code}} | {{repair.department_notifying.department_name}}" readonly/>
+                            </div>
+                            <label class="col-sm-2 col-form-label">วันที่แจ้งซ่อมเครื่องจักร : </label>
+                            <div class="col-sm-2">
+                                <input type="date" id="set_notification_date{{forloop.counter}}" class="form-control" name="set_notification_date" required="True" value="{{repair.notification_date|date:'Y-m-d'}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">ผู้แจ้งใบแจ้งซ่อมเครื่องจักร :</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="set_repairer_user" id="set_repairer_user{{forloop.counter}}"  value="{{repair.repairer_user.username}}" readonly/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="set_repairer_name" id="set_repairer_name{{forloop.counter}}" value="{{repair.repairer_user.firstname}} {{repair.repairer_user.lastname}}" readonly/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="set_repairer_email" id="set_repairer_email{{forloop.counter}}" value="{{repair.repairer_user.email}}" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">ผู้ตรวจสอบใบแจ้งซ่อม :</label>
+                            <div class="col-sm-3">
+                                <select  class="form-control" id="set_inspect_user{{forloop.counter}}" name="set_inspect_user" onchange="load_inspect_username(this)" required="True" data-url="{% url 'load_username' %}">
+                                    <option value="">-- กรุณาเลือกผู้ตรวจสอบ --</option>
+                                    {% for inspect_user in list_inspect_user %}
+                                    <option value="{{inspect_user.user.pk}}" {% if inspect_user.user.pk == repair.inspect_user.pk  %}selected{% endif%}>{{inspect_user.user.pk}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <select  class="form-control" id="set_inspect_name{{forloop.counter}}" name="set_inspect_name" onchange="load_inspect_username(this)" required="True" data-url="{% url 'load_username' %}">
+                                    <option value="">-- กรุณาเลือกผู้ตรวจสอบ --</option>
+                                    {% for inspect_user in list_inspect_user %}
+                                    <option value="{{inspect_user.user.pk}}" {% if inspect_user.user.pk == repair.inspect_user.pk  %}selected{% endif%}>{{inspect_user.user.firstname}}  {{inspect_user.user.lastname}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="set_inspect_email" id="set_inspect_email{{forloop.counter}}" value="{{repair.inspect_user.email}}" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">ผู้อนุมัติใบแจ้งซ่อม :</label>
+                            <div class="col-sm-3">
+                                <select  class="form-control" id="set_approve_user{{forloop.counter}}" name="set_approve_user" onchange="load_approve_username(this)" required="True" data-url="{% url 'load_username' %}">
+                                    <option value="">-- กรุณาเลือกผู้อนุมัติ --</option>
+                                    {% for approve_user in list_approve_user %}
+                                    <option value="{{approve_user.user.pk}}" {% if approve_user.user.pk == repair.approve_user.pk  %}selected{% endif%}>{{approve_user.user.pk}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <select  class="form-control" id="set_approve_name{{forloop.counter}}" name="set_approve_name" onchange="load_approve_username(this)" required="True" data-url="{% url 'load_username' %}">
+                                    <option value="">-- กรุณาเลือกผู้อนุมัติ --</option>
+                                    {% for approve_user in list_approve_user %}
+                                    <option value="{{approve_user.user.pk}}" {% if approve_user.user.pk == repair.approve_user.pk  %}selected{% endif%}>{{approve_user.user.firstname}}  {{approve_user.user.lastname}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="set_approve_email" id="set_approve_email{{forloop.counter}}" value="{{repair.approve_user.email}}" readonly/>
+                            </div>
+                        </div>
+
+                        <h5><b>ข้อมูลหน่วยงานรับแจ้งซ่อมเครื่องจักร</b></h5><hr><br>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">หน่วยงานที่แจ้ง : </label>
+                            <div class="col-sm-10">
+                                <select  class="form-control" id="set_department_receive{{forloop.counter}}" name="set_department_receive" required="True" >
+                                    <option value="">-- กรุณาเลือกแผนกที่รับแจ้ง --</option>
+                                    {% for dep in list_department %}
+                                    <option value="{{dep.pk}}" {% if dep.pk == repair.department_receive.pk %}selected{% endif %}>{{dep.department_code}} | {{dep.department_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <h5><b>ข้อมูลเครื่องจักร</b></h5><hr><br>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <label class="control-label">Line</label>
+                                <select  class="form-control" id="set_production_line{{forloop.counter}}" name="set_production_line" onchange="select_machine(this)" required="True">
+                                    <option value="0">--- กรุณาเลือกไลน์การผลิต ---</option>
+                                    {% for line in line_of_user %}
+                                    <option value="{{line.pk}}" {% if repair.machine.line.pk == line.pk %}selected {% endif %}>{{line.location_site}} ไลน์ผลิต {{line.production_line}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Machine Name</label>
+                                <select  class="form-control" id="set_machine{{forloop.counter}}" name="set_machine" required="True">
+                                    <option value="{{repair.machine.pk}}">{{repair.machine.machine_production_line_code}} | {{repair.machine.machine_name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>วันที่ต้องการใช้งาน</label>
+                                <input type="date" id="set_use_date{{forloop.counter}}" class="form-control" name="set_use_date" required="True" value="{{repair.use_date|date:"Y-m-d"}}">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="add_email">ปัญหาเครื่องจักร</label>
+                            <textarea class="form-control" rows="2" name="problem_report">{{repair.problem_report}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="add_email">ผลกระทบของปัญหา</label>
+                            <textarea class="form-control" rows="2" name="effect_problem">{{repair.effect_problem}}</textarea>
+                        </div>
+
+                        <h5><b>ผลการตรวจสอบ</b></h5><hr><br>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">ผลการตรวจสอบใบแจ้งซ่อม: </label>
+                            <div class="col-sm-3">
+                                <input type="text" name="set_inspect_name" {% if repair.is_inspect is True %}class="form-control is-valid" value="ตรวจสอบผ่าน"
+                                {% elif repair.is_inspect is False %}class="form-control is-invalid" value="ตรวจสอบไม่ผ่าน"
+                                {% else %}class="form-control" value=""{% endif %} readonly/>
+                            </div>
+                            <label class="col-sm-2 col-form-label">หมายเหตุ : </label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="set_inspect_name" value="{{repair.inspect_remark|default_if_none:''}}" readonly/>
+                            </div>
+                        </div>
+
+                        <h5><b>ผลการอนุมัติ</b></h5><hr><br>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">ผลการอนุมัติใบแจ้งซ่อม: </label>
+                            <div class="col-sm-3">
+                                <input type="text" name="set_inspect_name" {% if repair.is_approve is True %}class="form-control is-valid" value="อนุมัติผ่าน"
+                                {% elif repair.is_approve is False %}class="form-control is-invalid" value="อนุมัติไม่ผ่าน"
+                                {% else %}class="form-control" value=""{% endif %} readonly/>
+                            </div>
+                            <label class="col-sm-2 col-form-label">หมายเหตุ : </label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="set_inspect_name" value="{{repair.approve_remark|default_if_none:''}}" readonly/>
+                            </div>
+                        </div>
+
+                        <h5><b>ผลการรับใบแจ้งซ่อม</b></h5><hr><br>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">ผลการรับใบแจ้งซ่อม : </label>
+                            <div class="col-sm-3">
+                                <input type="text" name="set_inspect_name" {% if repair.is_receive is True %}class="form-control is-valid" value="ผ่านการรับแจ้งซ่อม"
+                                {% elif repair.is_receive is False %}class="form-control is-invalid" value="ไม่ผ่านการรับแจ้งซ่อม"
+                                {% else %}class="form-control" value=""{% endif %} readonly/>
+                            </div>
+                            <label class="col-sm-2 col-form-label">หมายเหตุ : </label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="set_inspect_name" value="{{repair.receive_remark|default_if_none:''}}" readonly/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-warning" name="set_repair" id="set_repair" value="{{repair.pk}}" {% if repair.is_cancel %}disabled{% endif %}>Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="delete{{forloop.counter}}" class="modal fade" tabindex="-1" >
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content modal-lg">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <input type="text" id="del_repair{{forloop.counter}}" class="form-control" value="หมายเลขใบแจ้งซ่อมเครื่องจักร : {{repair.repair_no}}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="del_repair{{forloop.counter}}" class="form-control" value="ผู้แจ้งใบแจ้งซ่อมเครื่องจักร : {{repair.repairer_user.username}}  [ {{repair.repairer_user.firstname}}  {{repair.repairer_user.lastname}} ]" readonly>
+                            </div>
+
+                            <p>Do you want to delete this repair notice?</p>
+                            <p class="text-secondary"><small>If you change your mind, please click cancel.</small></p>
+                        </div>
+                        <div class="modal-footer">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger" value="{{repair.pk}}" name="delete_repair_notice">Delete</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    <div id="create_repair_notice" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title">ใบแจ้งซ่อมเครื่องจักร</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <label><b>ข้อมูลหน่วยงานแจ้งซ่อมเครื่องจักร</b></label><hr><br>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">หน่วยงานที่แจ้ง : </label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="department_notifying" id="department_notifying" value="{{UserLoginDepartment.pk}}" hidden/>
+                                <input type="text" class="form-control" name="department_notifying_name" id="department_notifying_name" value="{{UserLoginDepartment.department_code}} | {{UserLoginDepartment.department_name}}" readonly/>
+                            </div>
+                            <label class="col-sm-2 col-form-label">วันที่แจ้งซ่อมเครื่องจักร : </label>
+                            <div class="col-sm-2">
+                                <input type="date" id="notification_date" class="form-control" name="notification_date" required="True" >
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">ผู้แจ้งใบแจ้งซ่อมเครื่องจักร :</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="repairer_user" id="repairer_user"  value="{{User_login.username}}" readonly/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="repairer_name" id="repairer_name" value="{{User_login.firstname}} {{User_login.lastname}}" readonly/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="repairer_email" id="repairer_email" value="{{User_login.email}}" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">ผู้ตรวจสอบใบแจ้งซ่อม :</label>
+                            <div class="col-sm-3">
+                                <select  class="form-control" id="inspect_user" name="inspect_user" onchange="load_inspect_username(this)" required="True" data-url="{% url 'load_username' %}">
+                                    <option value="">-- กรุณาเลือกผู้ตรวจสอบ --</option>
+                                    {% for inspect_user in list_inspect_user %}
+                                    <option value="{{inspect_user.user.pk}}">{{inspect_user.user.pk}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <select  class="form-control" id="inspect_name" name="inspect_name" onchange="load_inspect_username(this)" required="True" data-url="{% url 'load_username' %}" required="True">
+                                    <option value="">-- กรุณาเลือกผู้ตรวจสอบ --</option>
+                                    {% for inspect_user in list_inspect_user %}
+                                    <option value="{{inspect_user.user.pk}}">{{inspect_user.user.firstname}}  {{inspect_user.user.lastname}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="inspect_email" id="inspect_email" value="" readonly/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">ผู้อนุมัติใบแจ้งซ่อม :</label>
+                            <div class="col-sm-3">
+                                <select  class="form-control" id="approve_user" name="approve_user" onchange="load_approve_username(this)" required="True" data-url="{% url 'load_username' %}">
+                                    <option value="">-- กรุณาเลือกผู้อนุมัติ --</option>
+                                    {% for approve_user in list_approve_user %}
+                                    <option value="{{approve_user.user.pk}}">{{approve_user.user.pk}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <select  class="form-control" id="approve_name" name="approve_name" onchange="load_approve_username(this)" required="True" data-url="{% url 'load_username' %}">
+                                    <option value="">-- กรุณาเลือกผู้อนุมัติ --</option>
+                                    {% for approve_user in list_approve_user %}
+                                    <option value="{{approve_user.user.pk}}">{{approve_user.user.firstname}}  {{approve_user.user.lastname}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" name="approve_email" id="approve_email" value="" readonly/>
+                            </div>
+                        </div>
+                        
+                        <label><b>ข้อมูลหน่วยงานรับซ่อมเครื่องจักร</b></label><hr><br>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">หน่วยงานที่รับแจ้ง : </label>
+                            <div class="col-sm-10">
+                                <select  class="form-control" id="department_receive" name="department_receive" required="True">
+                                    <option value="">-- กรุณาเลือกแผนกที่รับแจ้ง --</option>
+                                    {% for dep in list_department %}
+                                    <option value="{{dep.pk}}">{{dep.department_code}} | {{dep.department_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <label><b>ข้อมูลเครื่องจักร</b></label><hr><br>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <label class="control-label">Line</label>
+                                <select  class="form-control" id="production_line" name="production_line" onchange="select_machine(this)" required="True">
+                                    <option value="">--- กรุณาเลือกไลน์การผลิต ---</option>
+                                    {% for line in line_of_user %}
+                                    <option value="{{line.pk}}">{{line.location_site}} ไลน์ผลิต {{line.production_line}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Machine Name</label>
+                                <select  class="form-control" id="machine" name="machine" required="True">
+                                    <option value="">--- กรุณาเลือกเครื่องจักร ---</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label>วันที่ต้องการใช้งาน</label>
+                                <input type="date" id="use_date" class="form-control" name="use_date" required="True" >
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="add_email">ปัญหาเครื่องจักร</label>
+                            <textarea class="form-control" rows="2" name="problem_report"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="add_email">ผลกระทบของปัญหา</label>
+                            <textarea class="form-control" rows="2" name="effect_problem"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary" name="create_repair" id="create_repair">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+        </tbody>
+    </table>
+    <div id="export-file" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" id="export_file">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title">Export File</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">ใบแจ้งซ่อมของ</label>
+                                <select class="col-7 form-control" name="department_file">
+                                    <option value="1">ตัวเราทั้งหมด</option>
+                                    <option value="2">หน่วยงานของเราทั้งหมด</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">สถานะใบแจ้งซ่อม</label>
+                                <select class="col-7 form-control" name="status_file">
+                                    <option value="1">ใบแจ้งซ่อมที่ค้าง</option>
+                                    <option value="2">ใบแจ้งซ่อมที่เสร็จสิ้น</option>
+                                    <option value="3">ใบแจ้งซ่อมทั้งหมด</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-sm-4 col-form-label">ช่วงเวลา</label>
+                                <select class="col-7 form-control" name="date_file">
+                                    <option value="1">วันนี้ทั้งหมด</option>
+                                    <option value="2">7 วันก่อนหน้าทั้งหมด</option>
+                                    <option value="3">เดือนนี้ทั้งหมด</option>
+                                    <option value="4">ปีนี้ทั้งหมด</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary" name="export" id="ExportButton">Export</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block script %}
+<script>
+    function select_machine(element) {
+        if (element.id.substr(0,3) != 'set'){
+            var line_id = document.getElementById('production_line').value;
+        } else {
+            var num_loop = element.id.substr(19);
+            var line_id = document.getElementById('set_production_line'+num_loop).value;
+        }
+        $.ajax({
+            url: "{% url 'ajax_load_machine' %}",
+            data: {
+                'line_id': line_id
+            },
+            success: function (data) {
+                if (element.id.substr(0,3) != 'set'){
+                    $("#machine").html(data);
+                } else {
+                    $("#set_machine"+num_loop).html(data);
+                }
+            }
+        });
+    }
+</script>
+<script>
+    function load_inspect_username(element) {
+            var username = $(element).val();
+            if (element.id.substr(0,3) != 'set'){
+                var inspect_user = document.getElementById('inspect_user');
+                var inspect_name = document.getElementById('inspect_name');
+                var inspect_email = document.getElementById('inspect_email');
+                inspect_user.value = username;
+                inspect_name.value = username;
+            } else {
+                var num_loop = element.id.substr(16);
+                var inspect_user = document.getElementById('set_inspect_user'+num_loop);
+                var inspect_name = document.getElementById('set_inspect_name'+num_loop);
+                var inspect_email = document.getElementById('set_inspect_email'+num_loop);
+                inspect_user.value = username;
+                inspect_name.value = username;
+            }
+            $.ajax({
+                url : $(element).attr("data-url"),
+                data : {
+                    "csrfmiddlewaretoken" : $(element).siblings("input[name='csrfmiddlewaretoken']" ).val(),
+                    "username" : username,
+
+                },
+                method: "POST",
+                dataType : "json",
+                success : function (data) {
+                    if (data.user_success) {
+                        inspect_email.value = data.user_email;
+                    }
+                }
+            });
+    }
+</script>
+<script>
+    function load_approve_username(element) {
+            var username = $(element).val();
+
+            if (element.id.substr(0,3) != 'set'){
+                var approve_user = document.getElementById('approve_user');
+                var approve_name = document.getElementById('approve_name');
+                var approve_email = document.getElementById('approve_email');
+                approve_user.value = username;
+                approve_name.value = username;
+            } else {
+                var num_loop = element.id.substr(16);
+                var approve_user = document.getElementById('set_approve_user'+num_loop);
+                let approve_name = document.getElementById('set_approve_name'+num_loop);
+                var approve_email = document.getElementById('set_approve_email'+num_loop);
+                approve_user.value = username;
+                approve_name.value = username;
+            }
+            $.ajax({
+                url : $(element).attr("data-url"),
+                data : {
+                    "csrfmiddlewaretoken" : $(element).siblings("input[name='csrfmiddlewaretoken']" ).val(),
+                    "username" : username,
+
+                },
+                method: "POST",
+                dataType : "json",
+                success : function (data) {
+                    if (data.user_success) {
+                        approve_email.value = data.user_email;
+                    }
+                }
+            });
+        }
+</script>
+{% endblock %}

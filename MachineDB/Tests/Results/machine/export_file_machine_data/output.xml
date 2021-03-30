@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0 (Python 3.9.2 on darwin)" generated="20210323 20:27:57.735" rpa="false" schemaversion="2">
+<suite id="s1" name="Export File Machine Data" source="/Users/MS/Project/MachineDB/Tests/export_file_machine_data.robot">
+<test id="s1-t1" name="Export Docx File">
+<kw name="Open Browser To Signin Page" library="resource">
+<kw name="Open Browser" library="Selenium2Library">
+<arg>${SIGNIN URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20210323 20:27:58.016" level="INFO">Opening browser 'Chrome' to base url 'http://127.0.0.1:8000/'.</msg>
+<status status="PASS" starttime="20210323 20:27:58.016" endtime="20210323 20:28:00.572"/>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20210323 20:28:00.573" endtime="20210323 20:28:00.697"/>
+</kw>
+<kw name="Set Selenium Speed" library="Selenium2Library">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" starttime="20210323 20:28:00.697" endtime="20210323 20:28:00.698"/>
+</kw>
+<status status="PASS" starttime="20210323 20:27:58.015" endtime="20210323 20:28:00.698"/>
+</kw>
+<kw name="Input Username" library="resource">
+<arg>system</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputUser</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:00.699" level="INFO">Typing text 'system' into text field 'inputUser'.</msg>
+<status status="PASS" starttime="20210323 20:28:00.699" endtime="20210323 20:28:00.830"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:00.698" endtime="20210323 20:28:00.831"/>
+</kw>
+<kw name="Input Password" library="resource">
+<arg>admin</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputPassword</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:00.832" level="INFO">Typing text 'admin' into text field 'inputPassword'.</msg>
+<status status="PASS" starttime="20210323 20:28:00.832" endtime="20210323 20:28:00.893"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:00.831" endtime="20210323 20:28:00.894"/>
+</kw>
+<kw name="Submit Credentials" library="resource">
+<kw name="Click Button" library="Selenium2Library">
+<arg>signin</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:00.895" level="INFO">Clicking button 'signin'.</msg>
+<status status="PASS" starttime="20210323 20:28:00.894" endtime="20210323 20:28:01.017"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:00.894" endtime="20210323 20:28:01.017"/>
+</kw>
+<kw name="Then Select-Department Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${SELECTDEPARTMENT URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210323 20:28:01.021" level="INFO">Current location is 'http://127.0.0.1:8000/sign-in/department/'.</msg>
+<status status="PASS" starttime="20210323 20:28:01.018" endtime="20210323 20:28:01.021"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:01.017" endtime="20210323 20:28:01.021"/>
+</kw>
+<kw name="Select Admin Department" library="resource">
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>id:select_department</arg>
+<arg>8</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210323 20:28:01.022" level="INFO">Selecting options from selection list 'id:select_department' by value 8.</msg>
+<status status="PASS" starttime="20210323 20:28:01.022" endtime="20210323 20:28:01.051"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:01.021" endtime="20210323 20:28:01.051"/>
+</kw>
+<kw name="Click Button" library="Selenium2Library">
+<arg>Sign in</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:01.052" level="INFO">Clicking button 'Sign in'.</msg>
+<status status="PASS" starttime="20210323 20:28:01.051" endtime="20210323 20:28:01.475"/>
+</kw>
+<kw name="Home Page Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${HOME URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210323 20:28:01.480" level="INFO">Current location is 'http://127.0.0.1:8000/home/'.</msg>
+<status status="PASS" starttime="20210323 20:28:01.476" endtime="20210323 20:28:01.480"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:01.476" endtime="20210323 20:28:01.480"/>
+</kw>
+<kw name="Select Machine Data Menu">
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="sidebar"]/div[2]/ul[1]/li[1]/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:01.481" level="INFO">Clicking link '//*[@id="sidebar"]/div[2]/ul[1]/li[1]/a'.</msg>
+<status status="PASS" starttime="20210323 20:28:01.481" endtime="20210323 20:28:01.534"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:01.480" endtime="20210323 20:28:01.534"/>
+</kw>
+<kw name="Then Select Machine">
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="machine_manage_menumenu"]/li[1]/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:01.535" level="INFO">Clicking link '//*[@id="machine_manage_menumenu"]/li[1]/a'.</msg>
+<status status="PASS" starttime="20210323 20:28:01.534" endtime="20210323 20:28:02.332"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:01.534" endtime="20210323 20:28:02.332"/>
+</kw>
+<kw name="Machine Management Page Should Be Open">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>http://127.0.0.1:8000/machinemanage/machine-management</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210323 20:28:02.398" level="INFO">Current location is 'http://127.0.0.1:8000/machinemanage/machine-management'.</msg>
+<status status="PASS" starttime="20210323 20:28:02.332" endtime="20210323 20:28:02.399"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:02.332" endtime="20210323 20:28:02.399"/>
+</kw>
+<kw name="Click Export to File Button">
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath:/html/body/div[2]/div/div[1]/div[1]/div/div[2]/a[2]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:02.400" level="INFO">Clicking element 'xpath:/html/body/div[2]/div/div[1]/div[1]/div/div[2]/a[2]'.</msg>
+<status status="PASS" starttime="20210323 20:28:02.400" endtime="20210323 20:28:02.441"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:02.399" endtime="20210323 20:28:02.441"/>
+</kw>
+<kw name="Select Data">
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<arg>Export File</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210323 20:28:02.442" endtime="20210323 20:28:02.481"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210323 20:28:04.483" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20210323 20:28:02.481" endtime="20210323 20:28:04.483"/>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath://*[@id="dropdown-semantic"]/div</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:04.484" level="INFO">Clicking element 'xpath://*[@id="dropdown-semantic"]/div'.</msg>
+<status status="PASS" starttime="20210323 20:28:04.484" endtime="20210323 20:28:04.534"/>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath://*[@id="dropdown-semantic"]/div/div[2]/div[1]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:04.535" level="INFO">Clicking element 'xpath://*[@id="dropdown-semantic"]/div/div[2]/div[1]'.</msg>
+<status status="PASS" starttime="20210323 20:28:04.534" endtime="20210323 20:28:04.586"/>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath://*[@id="dropdown-semantic"]/div/div[2]/div[2]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:04.586" level="INFO">Clicking element 'xpath://*[@id="dropdown-semantic"]/div/div[2]/div[2]'.</msg>
+<status status="PASS" starttime="20210323 20:28:04.586" endtime="20210323 20:28:04.650"/>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath://*[@id="dropdown-semantic"]/div/div[2]/div[3]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:04.651" level="INFO">Clicking element 'xpath://*[@id="dropdown-semantic"]/div/div[2]/div[3]'.</msg>
+<status status="PASS" starttime="20210323 20:28:04.650" endtime="20210323 20:28:04.722"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210323 20:28:05.723" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20210323 20:28:04.722" endtime="20210323 20:28:05.724"/>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath://*[@id="ms-machines_choices"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:05.724" level="INFO">Clicking element 'xpath://*[@id="ms-machines_choices"]'.</msg>
+<status status="PASS" starttime="20210323 20:28:05.724" endtime="20210323 20:28:05.773"/>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath://*[@id="1574-selectable"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:05.774" level="INFO">Clicking element 'xpath://*[@id="1574-selectable"]'.</msg>
+<status status="PASS" starttime="20210323 20:28:05.773" endtime="20210323 20:28:05.817"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210323 20:28:06.817" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20210323 20:28:05.817" endtime="20210323 20:28:06.818"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:02.441" endtime="20210323 20:28:06.818"/>
+</kw>
+<kw name="Select Docx File">
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>name:file_type</arg>
+<arg>docx</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210323 20:28:06.820" level="INFO">Selecting options from selection list 'name:file_type' by value docx.</msg>
+<status status="PASS" starttime="20210323 20:28:06.820" endtime="20210323 20:28:06.866"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:06.819" endtime="20210323 20:28:06.866"/>
+</kw>
+<kw name="Click Button" library="Selenium2Library">
+<arg>id:ExportButton</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:06.867" level="INFO">Clicking button 'id:ExportButton'.</msg>
+<status status="PASS" starttime="20210323 20:28:06.866" endtime="20210323 20:28:07.030"/>
+</kw>
+<kw name="Docx File Should Be Downloaded">
+<kw name="Sleep" library="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210323 20:28:09.033" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20210323 20:28:07.031" endtime="20210323 20:28:09.033"/>
+</kw>
+<kw name="File Should Exist" library="OperatingSystem">
+<arg>/Users/MS/Downloads/machine_data.docx</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<msg timestamp="20210323 20:28:09.035" level="INFO" html="true">File '&lt;a href="file:///Users/MS/Downloads/machine_data.docx"&gt;/Users/MS/Downloads/machine_data.docx&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20210323 20:28:09.033" endtime="20210323 20:28:09.035"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:07.031" endtime="20210323 20:28:09.035"/>
+</kw>
+<status status="PASS" starttime="20210323 20:27:58.014" endtime="20210323 20:28:09.036"/>
+</test>
+<test id="s1-t2" name="Export Xls File">
+<kw name="Select Xls File">
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>name:file_type</arg>
+<arg>excel</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210323 20:28:09.040" level="INFO">Selecting options from selection list 'name:file_type' by value excel.</msg>
+<status status="PASS" starttime="20210323 20:28:09.040" endtime="20210323 20:28:09.093"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:09.039" endtime="20210323 20:28:09.093"/>
+</kw>
+<kw name="Click Button" library="Selenium2Library">
+<arg>id:ExportButton</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210323 20:28:09.094" level="INFO">Clicking button 'id:ExportButton'.</msg>
+<status status="PASS" starttime="20210323 20:28:09.093" endtime="20210323 20:28:09.156"/>
+</kw>
+<kw name="Xls File Should Be Downloaded">
+<kw name="Sleep" library="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210323 20:28:11.158" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20210323 20:28:09.157" endtime="20210323 20:28:11.158"/>
+</kw>
+<kw name="File Should Exist" library="OperatingSystem">
+<arg>/Users/MS/Downloads/Machines.xls</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<msg timestamp="20210323 20:28:11.160" level="INFO" html="true">File '&lt;a href="file:///Users/MS/Downloads/Machines.xls"&gt;/Users/MS/Downloads/Machines.xls&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20210323 20:28:11.159" endtime="20210323 20:28:11.160"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:09.156" endtime="20210323 20:28:11.160"/>
+</kw>
+<status status="PASS" starttime="20210323 20:28:09.038" endtime="20210323 20:28:11.161"/>
+</test>
+<kw name="Close Browser" library="Selenium2Library" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20210323 20:28:11.166" endtime="20210323 20:28:11.261"/>
+</kw>
+<doc>A test suite for exporting machine file.</doc>
+<status status="PASS" starttime="20210323 20:27:57.736" endtime="20210323 20:28:11.261"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="0" skip="0" id="s1" name="Export File Machine Data">Export File Machine Data</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

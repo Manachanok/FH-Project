@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0 (Python 3.9.2 on darwin)" generated="20210323 08:53:53.216" rpa="false" schemaversion="2">
+<suite id="s1" name="Admin Signin" source="/Users/MS/Project/MachineDB/Tests/admin_signin.robot">
+<test id="s1-t1" name="Admin Signin">
+<kw name="Open Browser To Signin Page" library="resource">
+<kw name="Open Browser" library="Selenium2Library">
+<arg>${SIGNIN URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20210323 08:53:53.446" level="INFO">Opening browser 'Chrome' to base url 'http://127.0.0.1:8000/'.</msg>
+<status status="PASS" starttime="20210323 08:53:53.446" endtime="20210323 08:53:56.099"/>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20210323 08:53:56.099" endtime="20210323 08:53:56.234"/>
+</kw>
+<kw name="Set Selenium Speed" library="Selenium2Library">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" starttime="20210323 08:53:56.234" endtime="20210323 08:53:56.235"/>
+</kw>
+<status status="PASS" starttime="20210323 08:53:53.446" endtime="20210323 08:53:56.235"/>
+</kw>
+<kw name="Input Username" library="resource">
+<arg>system</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputUser</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210323 08:53:56.237" level="INFO">Typing text 'system' into text field 'inputUser'.</msg>
+<status status="PASS" starttime="20210323 08:53:56.237" endtime="20210323 08:53:56.371"/>
+</kw>
+<status status="PASS" starttime="20210323 08:53:56.236" endtime="20210323 08:53:56.371"/>
+</kw>
+<kw name="Input Password" library="resource">
+<arg>admin</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputPassword</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210323 08:53:56.372" level="INFO">Typing text 'admin' into text field 'inputPassword'.</msg>
+<status status="PASS" starttime="20210323 08:53:56.372" endtime="20210323 08:53:56.432"/>
+</kw>
+<status status="PASS" starttime="20210323 08:53:56.371" endtime="20210323 08:53:56.432"/>
+</kw>
+<kw name="Submit Credentials" library="resource">
+<kw name="Click Button" library="Selenium2Library">
+<arg>signin</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210323 08:53:56.433" level="INFO">Clicking button 'signin'.</msg>
+<status status="PASS" starttime="20210323 08:53:56.433" endtime="20210323 08:53:56.553"/>
+</kw>
+<status status="PASS" starttime="20210323 08:53:56.432" endtime="20210323 08:53:56.554"/>
+</kw>
+<kw name="Then Select-Department Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${SELECTDEPARTMENT URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210323 08:53:56.557" level="INFO">Current location is 'http://127.0.0.1:8000/sign-in/department/'.</msg>
+<status status="PASS" starttime="20210323 08:53:56.554" endtime="20210323 08:53:56.557"/>
+</kw>
+<status status="PASS" starttime="20210323 08:53:56.554" endtime="20210323 08:53:56.557"/>
+</kw>
+<kw name="Select Admin Department" library="resource">
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>id:select_department</arg>
+<arg>8</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210323 08:53:56.559" level="INFO">Selecting options from selection list 'id:select_department' by value 8.</msg>
+<status status="PASS" starttime="20210323 08:53:56.558" endtime="20210323 08:53:56.592"/>
+</kw>
+<status status="PASS" starttime="20210323 08:53:56.558" endtime="20210323 08:53:56.592"/>
+</kw>
+<kw name="Click Button" library="Selenium2Library">
+<arg>Sign in</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210323 08:53:56.593" level="INFO">Clicking button 'Sign in'.</msg>
+<status status="PASS" starttime="20210323 08:53:56.592" endtime="20210323 08:53:57.000"/>
+</kw>
+<kw name="Home Page Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${HOME URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210323 08:53:57.004" level="INFO">Current location is 'http://127.0.0.1:8000/home/'.</msg>
+<status status="PASS" starttime="20210323 08:53:57.000" endtime="20210323 08:53:57.005"/>
+</kw>
+<status status="PASS" starttime="20210323 08:53:57.000" endtime="20210323 08:53:57.005"/>
+</kw>
+<status status="PASS" starttime="20210323 08:53:53.445" endtime="20210323 08:53:57.005"/>
+</test>
+<doc>A test suite for admin signin.</doc>
+<status status="PASS" starttime="20210323 08:53:53.217" endtime="20210323 08:53:57.007"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Admin Signin">Admin Signin</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

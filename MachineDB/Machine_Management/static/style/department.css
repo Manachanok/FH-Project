@@ -1,0 +1,412 @@
+.nav-tabs {
+    border-radius: 0.5rem;
+    background: #f5f5f5;
+    border-bottom: 0 solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: #cf152d;
+    font-weight: 600;
+    background-color: #fff;
+    border-color: transparent;
+}
+
+.nav-tabs .nav-link:not(.active) {
+    color: rgba(33, 37, 41, 0.5);
+    border-color: transparent;
+}
+
+.nav-tabs .nav-link {
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    margin: .5rem;
+    padding: .5rem;
+    transition: color .35s ease-out;
+}
+
+.avatars {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+table.table .avatar-list, .lettet-avatar {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    border: 3px solid white;
+    font-family: sans-serif;
+    color: #CF152D;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: -1em;
+}
+.more-member {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-radius: 50%;
+    border: transparent;
+    font-family: sans-serif;
+    color: #636A6F;
+    font-weight: bold;
+    font-size: 17px;
+    margin-left: 0.375rem;
+}
+.member-detial {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.member-detial .member-detial-body {
+    margin-left: 1.5rem;
+}
+table.permission-table tr th {
+    border-top: none;
+}
+/* Checkbox Style */
+/* Styling Checkbox Starts */
+.checkbox-label {
+    display: block;
+    position: relative;
+    margin: auto;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 24px;
+    height: 24px;
+    width: 24px;
+    clear: both;
+}
+
+.checkbox-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox-label .checkbox-custom {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    border-radius: 5px;
+  	transition: all 0.1s ease-out;
+  	-webkit-transition: all 0.1s ease-out;
+  	-moz-transition: all 0.1s ease-out;
+  	-ms-transition: all 0.1s ease-out;
+  	-o-transition: all 0.1s ease-out;
+    border: 2px solid #DBDBDB;
+}
+
+.checkbox-label input:checked ~ .checkbox-custom {
+    background-color: #DBDBDB;
+    border-radius: 5px;
+    -webkit-transform: rotate(0deg) scale(1);
+    -ms-transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(1);
+    opacity:1;
+    border: 2px solid #DBDBDB;
+}
+
+.checkbox-label .checkbox-custom::after {
+    position: absolute;
+    content: "";
+    left: 12px;
+    top: 12px;
+    height: 0px;
+    width: 0px;
+    border-radius: 5px;
+    border: solid #009BFF;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(0deg) scale(0);
+    -ms-transform: rotate(0deg) scale(0);
+    transform: rotate(0deg) scale(0);
+    opacity:1;
+  	transition: all 0.1s ease-out;
+  	-webkit-transition: all 0.1s ease-out;
+  	-moz-transition: all 0.1s ease-out;
+  	-ms-transition: all 0.1s ease-out;
+  	-o-transition: all 0.1s ease-out;
+}
+
+.checkbox-label input:checked ~ .checkbox-custom::after {
+  -webkit-transform: rotate(45deg) scale(1);
+  -ms-transform: rotate(45deg) scale(1);
+  transform: rotate(45deg) scale(1);
+  opacity:1;
+  left: 7.3px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid #009BFF;
+  border-width: 0 2px 2px 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+/* Style for Circular Checkbox */
+.checkbox-label .checkbox-custom.circular {
+    border-radius: 50%;
+    border: 2px solid #DBDBDB;
+}
+.checkbox-label input:checked ~ .checkbox-custom.circular {
+    background-color: #DBDBDB;
+    border-radius: 50%;
+    border: 2px solid #DBDBDB;
+}
+.checkbox-label input:checked ~ .checkbox-custom.circular::after {
+    border: solid #0067FF;
+    border-width: 0 2px 2px 0;
+}
+.checkbox-label .checkbox-custom.circular::after {
+    border-radius: 50%;
+}
+.checkbox-label .checkbox-custom.circular::before {
+    border-radius: 50%;
+    border: 2px solid #DBDBDB;
+}
+.checkbox-label input:checked ~ .checkbox-custom.circular::before {
+    border-radius: 50%;
+}
+
+/* New Department Modal */
+.new-department-form {
+    align-items: center !important;
+    margin-right: 0;
+    margin-bottom: 1rem;
+}
+label[class*='col'] {
+    margin-bottom: 0;
+}
+
+/* Group User in Edit's department */
+.group-users {
+    margin-top: 1.5rem;
+    min-width: 280px;
+    max-height: 50vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+}
+.group-users .custom-control {
+    padding-right: 1.5rem;
+    padding-left: 0;
+    margin-bottom: 0.375rem;
+}
+.card-more-member {
+    margin-top: 1.5rem;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.group-users::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.group-users {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.custom-control {
+    position: relative;
+    z-index: 1;
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 2.5rem;
+}
+.group-users .lettet-avatar {
+    width: 32px;
+    height: 32px;
+}
+.custom-checkbox label {
+    display: block;
+}
+.custom-control-label {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+}
+.group-users .custom-control-label:before, .group-users .custom-control-label:after {
+    top: .625rem;
+    right: 0.25rem;
+    left: auto;
+}
+.btn.delete {
+    opacity: 0.6;
+    font-size: 0.9rem;
+    transition: color 200ms;
+}
+.btn.delete:hover, .btn.delete:active, .btn.delete:focus {
+    opacity: 1;
+    background-color: transparent;
+    color:#cf152d;
+    font-weight: 600;
+    box-shadow: none !important;
+  }
+
+/* Department Badge */
+.badge-a {
+    color: #2BAFB2;
+    background-color: #E8E6F3;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-b {
+    color: #4E6A14;
+    background-color: #FEF1EB;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-c {
+    color: #E04D6A;
+    background-color: #E1EDF9;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-d {
+    color: #FDE8E7;
+    background-color: #12527E;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-e {
+    color: #FFFFFF;
+    background-color: #37B98B;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-f {
+    color: #D56638;
+    background-color: #E6F4F4;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-g {
+    color: #6B658B;
+    background-color: #FEF1EB;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-h {
+    color: #EF5160;
+    background-color: #F7F4BD;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-i {
+    color: #00B0C8;
+    background-color: #FFF8F2;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-j {
+    color: #F1F8F1;
+    background-color: #ED174B;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-k {
+    color: #EF5160;
+    background-color: #FEF1EB;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-l {
+    color: #F1F8F1;
+    background-color: #F05622;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-m {
+    color: #FFFCDF;
+    background-color: #997663;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-n {
+    color: #275FA5;
+    background-color: #EAF2D9;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-o {
+    color: #F0E8F3;
+    background-color: #207B5C;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-p {
+    color: #CA7D66;
+    background-color: #EBEBEB;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-q {
+    color: #FFFFFF;
+    background-color: #7D2B42;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-r {
+    color: #FCE9DF;
+    background-color: #928F00;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-s {
+    color: #207B5C;
+    background-color: #E5DEF0;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-t {
+    color: #EEEBF6;
+    background-color: #F26655;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-u {
+    color: #FFEAD7;
+    background-color: #394458;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-v {
+    color: #41BEB0;
+    background-color: #E7EC92;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-w {
+    color: #7D2B42;
+    background-color: #EBC9B0;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-x {
+    color: #486F6A;
+    background-color: #FCE5EA;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-y {
+    color: #F05622;
+    background-color: #E5DEF0;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}
+.badge-z {
+    color: #1D65AF;
+    background-color: #E7EC92;
+    padding: .375rem .75rem;
+    font-size: 14px;
+}

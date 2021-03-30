@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0 (Python 3.9.2 on darwin)" generated="20210325 12:24:27.646" rpa="false" schemaversion="2">
+<suite id="s1" name="Edit Maintenance Request" source="/Users/MS/Project/MachineDB/Tests/edit_maintenance_request.robot">
+<test id="s1-t1" name="Product01 Edits Maintenance Request">
+<kw name="Open Browser To Signin Page" library="resource">
+<kw name="Open Browser" library="Selenium2Library">
+<arg>${SIGNIN URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20210325 12:24:27.862" level="INFO">Opening browser 'Chrome' to base url 'http://127.0.0.1:8000/'.</msg>
+<status status="PASS" starttime="20210325 12:24:27.861" endtime="20210325 12:24:30.523"/>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20210325 12:24:30.524" endtime="20210325 12:24:30.645"/>
+</kw>
+<kw name="Set Selenium Speed" library="Selenium2Library">
+<arg>${DELAY}</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" starttime="20210325 12:24:30.645" endtime="20210325 12:24:30.646"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:27.861" endtime="20210325 12:24:30.646"/>
+</kw>
+<kw name="Input Username" library="resource">
+<arg>product01</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputUser</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:30.647" level="INFO">Typing text 'product01' into text field 'inputUser'.</msg>
+<status status="PASS" starttime="20210325 12:24:30.646" endtime="20210325 12:24:30.794"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:30.646" endtime="20210325 12:24:30.794"/>
+</kw>
+<kw name="Input Password" library="resource">
+<arg>product01</arg>
+<kw name="Input Text" library="Selenium2Library">
+<arg>inputPassword</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:30.795" level="INFO">Typing text 'product01' into text field 'inputPassword'.</msg>
+<status status="PASS" starttime="20210325 12:24:30.795" endtime="20210325 12:24:30.859"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:30.794" endtime="20210325 12:24:30.859"/>
+</kw>
+<kw name="Submit Credentials" library="resource">
+<kw name="Click Button" library="Selenium2Library">
+<arg>signin</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:30.860" level="INFO">Clicking button 'signin'.</msg>
+<status status="PASS" starttime="20210325 12:24:30.859" endtime="20210325 12:24:30.976"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:30.859" endtime="20210325 12:24:30.976"/>
+</kw>
+<kw name="Then Select-Department Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${SELECTDEPARTMENT URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210325 12:24:30.981" level="INFO">Current location is 'http://127.0.0.1:8000/sign-in/department/'.</msg>
+<status status="PASS" starttime="20210325 12:24:30.977" endtime="20210325 12:24:30.981"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:30.976" endtime="20210325 12:24:30.981"/>
+</kw>
+<kw name="Select Production Line 8 Department" library="resource">
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>id:select_department</arg>
+<arg>7</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210325 12:24:30.983" level="INFO">Selecting options from selection list 'id:select_department' by value 7.</msg>
+<status status="PASS" starttime="20210325 12:24:30.982" endtime="20210325 12:24:31.013"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:30.982" endtime="20210325 12:24:31.013"/>
+</kw>
+<kw name="Click Button" library="Selenium2Library">
+<arg>Sign in</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:31.014" level="INFO">Clicking button 'Sign in'.</msg>
+<status status="PASS" starttime="20210325 12:24:31.014" endtime="20210325 12:24:31.417"/>
+</kw>
+<kw name="Home Page Should Be Open" library="resource">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>${HOME URL}</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210325 12:24:31.422" level="INFO">Current location is 'http://127.0.0.1:8000/home/'.</msg>
+<status status="PASS" starttime="20210325 12:24:31.418" endtime="20210325 12:24:31.422"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:31.418" endtime="20210325 12:24:31.422"/>
+</kw>
+<kw name="Select Request Maintenance Menu">
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="sidebar"]/div[2]/ul[1]/li[2]/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:31.423" level="INFO">Clicking link '//*[@id="sidebar"]/div[2]/ul[1]/li[2]/a'.</msg>
+<status status="PASS" starttime="20210325 12:24:31.423" endtime="20210325 12:24:31.484"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:31.422" endtime="20210325 12:24:31.485"/>
+</kw>
+<kw name="Then Select Request Maintenance">
+<kw name="Click Link" library="Selenium2Library">
+<arg>//*[@id="repair_menumenu"]/li/a</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:31.486" level="INFO">Clicking link '//*[@id="repair_menumenu"]/li/a'.</msg>
+<status status="PASS" starttime="20210325 12:24:31.486" endtime="20210325 12:24:31.739"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:31.485" endtime="20210325 12:24:31.739"/>
+</kw>
+<kw name="Request Maintenance Page Should Be Open">
+<kw name="Location Should Be" library="Selenium2Library">
+<arg>http://127.0.0.1:8000/repair/inform</arg>
+<doc>Verifies that the current URL is exactly ``url``.</doc>
+<msg timestamp="20210325 12:24:31.744" level="INFO">Current location is 'http://127.0.0.1:8000/repair/inform'.</msg>
+<status status="PASS" starttime="20210325 12:24:31.740" endtime="20210325 12:24:31.744"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:31.740" endtime="20210325 12:24:31.744"/>
+</kw>
+<kw name="Select Maintenance Request Will Be Edited">
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath://*[@id="myTable"]/tbody/tr[3]/td[10]/center/a[1]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:31.744" level="INFO">Clicking element 'xpath://*[@id="myTable"]/tbody/tr[3]/td[10]/center/a[1]'.</msg>
+<status status="PASS" starttime="20210325 12:24:31.744" endtime="20210325 12:24:31.830"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:31.744" endtime="20210325 12:24:31.831"/>
+</kw>
+<kw name="Edit Data">
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<arg>ใบแจ้งซ่อมเครื่องจักร</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" starttime="20210325 12:24:31.831" endtime="20210325 12:24:31.845"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20210325 12:24:32.848" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20210325 12:24:31.845" endtime="20210325 12:24:32.848"/>
+</kw>
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>id:set_inspect_user3</arg>
+<arg>product02</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210325 12:24:32.849" level="INFO">Selecting options from selection list 'id:set_inspect_user3' by value product02.</msg>
+<status status="PASS" starttime="20210325 12:24:32.848" endtime="20210325 12:24:32.893"/>
+</kw>
+<kw name="Select From List By Value" library="Selenium2Library">
+<arg>id:set_department_receive3</arg>
+<arg>5</arg>
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<msg timestamp="20210325 12:24:32.894" level="INFO">Selecting options from selection list 'id:set_department_receive3' by value 5.</msg>
+<status status="PASS" starttime="20210325 12:24:32.894" endtime="20210325 12:24:32.941"/>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<arg>xpath://*[@id="setting3"]/div/div/div[2]/div[9]/textarea</arg>
+<arg>${TEST DATA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:32.942" level="INFO">Typing text 'test' into text field 'xpath://*[@id="setting3"]/div/div/div[2]/div[9]/textarea'.</msg>
+<status status="PASS" starttime="20210325 12:24:32.941" endtime="20210325 12:24:33.089"/>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<arg>xpath://*[@id="setting3"]/div/div/div[2]/div[10]/textarea</arg>
+<arg>${TEST DATA}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:33.090" level="INFO">Typing text 'test' into text field 'xpath://*[@id="setting3"]/div/div/div[2]/div[10]/textarea'.</msg>
+<status status="PASS" starttime="20210325 12:24:33.089" endtime="20210325 12:24:33.202"/>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<arg>xpath=/html/body/div[2]/div/div/div[10]/div/div/div[2]/div[14]/button[2]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20210325 12:24:33.202" level="INFO">Clicking element 'xpath=/html/body/div[2]/div/div/div[10]/div/div/div[2]/div[14]/button[2]'.</msg>
+<status status="PASS" starttime="20210325 12:24:33.202" endtime="20210325 12:24:33.463"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:31.831" endtime="20210325 12:24:33.463"/>
+</kw>
+<status status="PASS" starttime="20210325 12:24:27.860" endtime="20210325 12:24:33.464"/>
+</test>
+<kw name="Close Browser" library="Selenium2Library" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20210325 12:24:33.465" endtime="20210325 12:24:33.547"/>
+</kw>
+<doc>A test suite for editing maintenance request.</doc>
+<status status="PASS" starttime="20210325 12:24:27.648" endtime="20210325 12:24:33.547"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Edit Maintenance Request">Edit Maintenance Request</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
